@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from news. models import Author, Category, Post, Comment, PostCategory
+from news. models import *
 
 1.Создать двух пользователей (с помощью метода User.objects.create_user).
     1,u1 = User.objects.create(username = 'User 1')
@@ -47,9 +47,15 @@ from news. models import Author, Category, Post, Comment, PostCategory
     6.Comment.objects.get(id=3).dislike()
     7.Comment.objects.get(id=4).like()
     8.commRunk
-    9.
 
-8.
+
+8.Обновить рейтинги пользователей.
+    1.Author.objects.get(author=User.objects.get(username = 'User1')).update_rating()
+    2.Author.objects.get(author=User.objects.get(username = 'User2')).update_rating()
+
+9.Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта).
+   
+
 
 
 

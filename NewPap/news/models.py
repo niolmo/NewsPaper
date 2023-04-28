@@ -10,15 +10,16 @@ class Author(models.Model):
     # МЕТОДЫ
 
     def update_rating(self):
-        poRunk = self.posts.all().aggregate(postRating=Sum('postRunk'))
+        poRunk = self.post_set.all().aggregate(postRating=Sum('postRunk'))
         p_R = 0
-        p_R += poRunk.get(postRating=Sum('postRunk'))
+        p_R += poRunk.get('postRating')
 
-        comRunk = self.comments.all().aggregate(commRating=Sum('commRunk'))
+        comRunk = self.author.comment_set.all().aggregate(commRating=Sum('commRunk'))
         c_R = 0
         c_R += comRunk.get('commRating')
 
         self.authorRunk = p_R * 3 + c_R
+        self.save()
 
 
 class Category(models.Model):
@@ -67,6 +68,9 @@ class Comment(models.Model):
     commText = models.TextField(max_length=2000)
     commCreaTime = models.DateTimeField(auto_now_add=True)
     commRunk = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.commUser.username
 
     def like(self):
         self.commRunk += 1
