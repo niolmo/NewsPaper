@@ -54,7 +54,18 @@ from news. models import *
     2.Author.objects.get(author=User.objects.get(username = 'User2')).update_rating()
 
 9.Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта).
-   
+    1. s = Author.objects.order_by('authorRunk')
+    2.for i in s: i.authorRunk, i.author.username
+
+ 10.Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи,
+ основываясь на лайках/дислайках к этой статье.
+    1.p = Post.objects.order_by('-postRunk')
+    2.for i in p[:1]:i.postCraTime, i.postAuthor, i.postRunk, i.postTitle, i.preview()
+
+11.Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+    1p[2].comment_set.values('commCreaTime', 'commUser', 'commRunk', 'commText')
+
+
 
 
 
