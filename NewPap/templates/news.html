@@ -6,6 +6,41 @@
 
 <!-- В контенте на странице мы выводим все новости -->
 {% block content %}
- <h1> Последние Новости</h1>
-{{ news }}
+  <h1> Последние Новости</h1>
+ {% if news %}
+   <table>
+       <tr>
+           <td>
+                postCraTime
+            </td>
+            <td>
+               postTitle
+             </td>
+            <td>
+               postText
+            </td>
+            <td>
+               postRunk
+            </td>
+       </tr>
+   {% for po in news %}
+       <tr>
+           <td>
+               {{ po.postCraTime }}
+           </td>
+           <td>
+               {{ po.postTitle }}
+           </td>
+           <td>
+               {{ po.postText }}
+           </td>
+           <td>
+               {{ po.postRunk }}
+           </td>
+       </tr>
+       {% endfor %}
+   </table>
+ {% else %}
+   <h2>Ностей на сегодня нет</h2>
+ {% endif %}
 {% endblock content %}
