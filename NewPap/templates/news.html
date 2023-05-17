@@ -6,33 +6,33 @@
 
 <!-- В контенте на странице мы выводим все новости -->
 {% block content %}
-  <h1> Последние Новости</h1>
+  <h1> Последние Новости: {{news|length}}</h1>
  {% if news %}
    <table>
        <tr>
-           <td>
-                postCraTime
+           <td class="fw-bold">
+               Заголовок(название)
+           </td>
+           <td class="fw-bold">
+                Дата создвния
             </td>
-            <td>
-               postTitle
-             </td>
-            <td>
-               postText
+            <td class="fw-bold">
+               Текст
             </td>
-            <td>
-               postRunk
+            <td class="fw-bold">
+               Рейтинг
             </td>
        </tr>
    {% for po in news %}
        <tr>
-           <td>
-               {{ po.postCraTime }}
-           </td>
-           <td>
+           <td class="fw-bolder">
                {{ po.postTitle }}
            </td>
            <td>
-               {{ po.postText }}
+               {{ po.postCraTime|date:'d M y' }}
+           </td>
+           <td>
+               {{ po.postText |truncatewords:20}}
            </td>
            <td>
                {{ po.postRunk }}
