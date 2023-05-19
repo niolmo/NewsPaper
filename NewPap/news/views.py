@@ -9,12 +9,13 @@ class NewsList(ListView):
     model = Post
     template_name = 'news.html'
     context_object_name = 'news'
+    queryset = Post.objects.order_by('-id')
 
 
 class NewsDetail(DetailView):
     model = Post
-    template_name = 'news.html'
-    context_object_name = 'news'
+    template_name = 'item.html'
+    context_object_name = 'post'
 
 
 def get_context_data(self, **kwargs):

@@ -6,7 +6,9 @@
 
 <!-- В контенте на странице мы выводим все новости -->
 {% block content %}
-  <h1> Последние Новости: {{news|length}}</h1>
+    <h1> Последние Новости: {{news|length}}</h1>
+    <h3>{{ time_now }}</h3>
+    <h3> {{ value1|default_if_none:"ничего" }} </h3>
  {% if news %}
    <table>
        <tr>
@@ -23,22 +25,22 @@
                Рейтинг
             </td>
        </tr>
-   {% for po in news %}
-       <tr>
-           <td class="fw-bolder">
-               {{ po.postTitle }}
-           </td>
-           <td>
-               {{ po.postCraTime|date:'d M y' }}
-           </td>
-           <td>
-               {{ po.postText |truncatewords:20}}
-           </td>
-           <td>
-               {{ po.postRunk }}
-           </td>
-       </tr>
-       {% endfor %}
+       {% for post in news %}
+           <tr>
+               <td class="fw-bolder">
+                   {{ post.postTitle }}
+               </td>
+               <td>
+                   {{ post.postCraTime|date:'d M y' }}
+               </td>
+               <td>
+                   {{ post.postText |truncatewords:20}}
+               </td>
+               <td>
+                   {{ post.postRunk }}
+               </td>
+           </tr>
+           {% endfor %}
    </table>
  {% else %}
    <h2>Ностей на сегодня нет</h2>
