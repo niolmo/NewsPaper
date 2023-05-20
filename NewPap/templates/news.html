@@ -1,6 +1,10 @@
 <!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
 {% extends 'flatpages/default.html' %}
 
+<!--Свои фильтры-->
+{% load custom_filters %}
+<!-- custom_filters - ЭТО НАЗВАНИЕ ФАЙЛА с фильтрами!!!-->
+
 <!-- Название у нас будет news -->
 {% block title %}news{% endblock title %}
 
@@ -28,7 +32,7 @@
        {% for post in news %}
            <tr>
                <td class="fw-bolder">
-                   {{ post.postTitle }}
+                   {{ post.postTitle |multiply:4 }}
                </td>
                <td>
                    {{ post.postCraTime|date:'d M y' }}

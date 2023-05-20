@@ -7,6 +7,6 @@
 <!-- В контенте на странице мы выводим сам товар, айди которого было передано в адрес -->
 {% block content %}
 <h1>{{ post.postTitle }}</h1>
-{{ post.postCraTime|date:'d M y' }}
+{{ post.postCraTime}}
 <p>{{ post.postText }}</p>
 {% endblock content %}
