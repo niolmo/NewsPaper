@@ -38,7 +38,7 @@
                    {{ post.postCraTime|date:'d M y' }}
                </td>
                <td>
-                   {{ post.postText |truncatewords:20}}
+                   {{ post.postText|Censor|truncatewords:50 }}
                </td>
                <td>
                    {{ post.postRunk }}
