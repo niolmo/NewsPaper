@@ -26,12 +26,14 @@ class Author(models.Model):
 
 class Category(models.Model):
     nameCategory = models.CharField(max_length=20, unique=True)
+
     def __str__(self):
         return f'{self.nameCategory}'
 
 
 class Post(models.Model):
     # варианты типов + кортеж
+    objects = models.Manager()
     news = 'NW'
     artical = 'AR'
     types = [
@@ -50,6 +52,7 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.postAuthor}, {self.postType}, {self.postCraTime}, {self.postCtg},{self.postTitle}, {self.postText},{self.postRunk}'
+
     # МЕТОДЫ
     def like(self):
         self.postRunk += 1
@@ -74,8 +77,10 @@ class Comment(models.Model):
     commText = models.TextField(max_length=2000)
     commCreaTime = models.DateTimeField(auto_now_add=True)
     commRunk = models.IntegerField(default=0)
+
     def __str__(self):
         return f'{self.commUser}'
+
     def __str__(self):
         return self.commUser.username
 
