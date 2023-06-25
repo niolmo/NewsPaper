@@ -6,6 +6,8 @@ from django.db.models import Sum
 class Author(models.Model):
     author = models.OneToOneField(User, on_delete=models.CASCADE)
     authorRunk = models.IntegerField(default=0)
+    def __str__(self):
+        return f'{self.author}'
 
     # МЕТОДЫ
 
@@ -24,6 +26,8 @@ class Author(models.Model):
 
 class Category(models.Model):
     nameCategory = models.CharField(max_length=20, unique=True)
+    def __str__(self):
+        return f'{self.nameCategory}'
 
 
 class Post(models.Model):
@@ -44,6 +48,8 @@ class Post(models.Model):
     postText = models.TextField()
     postRunk = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f'{self.postAuthor}, {self.postType}, {self.postCraTime}, {self.postCtg},{self.postTitle}, {self.postText},{self.postRunk}'
     # МЕТОДЫ
     def like(self):
         self.postRunk += 1
@@ -68,7 +74,8 @@ class Comment(models.Model):
     commText = models.TextField(max_length=2000)
     commCreaTime = models.DateTimeField(auto_now_add=True)
     commRunk = models.IntegerField(default=0)
-
+    def __str__(self):
+        return f'{self.commUser}'
     def __str__(self):
         return self.commUser.username
 
