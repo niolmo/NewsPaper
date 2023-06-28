@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     # МОЕ
     'news',
     'accounts',
+    # ФИЛЬТР
+    'django_filters'
 ]
 
 MIDDLEWARE = [

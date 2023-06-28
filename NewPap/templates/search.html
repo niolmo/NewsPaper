@@ -1,0 +1,89 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+
+<!--Свои фильтры-->
+{% load custom_filters %}
+<!-- custom_filters - ЭТО НАЗВАНИЕ ФАЙЛА с фильтрами!!!-->
+
+<!-- Название у нас будет news -->
+{% block title %}news{% endblock title %}
+
+<!-- В контенте на странице мы выводим все новости -->
+{% block content %}
+    <h1>Поиск</h1>
+    <h3>{{ time_now }}</h3>
+    <h3> {{ value1|default_if_none:"ничего" }} </h3>
+ {% if result %}
+<form action="#" method="get">
+    <label for="d">Дата</label>
+    <input type="date" name="d" id="data">
+    <label for="t">Заголовок</label>
+    <input type="search" type="text" name="t" id="title">
+    <label for="a">Автор</label>
+    <input type="search" type="text" name="a" id="author">
+    <input type="submit" value="Найти">
+</form>
+   <table>
+       <tr>
+           <td class="fw-bold">
+               Заголовок(название)
+           </td>
+           <td class="fw-bold">
+                Дата создвния
+            </td>
+            <td class="fw-bold">
+               Текст
+            </td>
+           <td class="fw-bold">
+               Автор
+            </td>
+            <td class="fw-bold">
+               Рейтинг
+            </td>
+       </tr>
+       {% for post in result %}
+           <tr>
+               <td class="fw-bolder">
+                   {{ post.postTitle |multiply:1 }}
+               </td>
+               <td>
+                   {{ post.postCraTime|date:'d M y' }}
+               </td>
+               <td>
+                   {{ post.postText|Censor|truncatewords:50 }}
+               </td>
+               <td>
+                   {{ post.postAuthor }}
+               </td>
+               <td>
+                   {{ post.postRunk }}
+               </td>
+           </tr>
+           {% endfor %}
+   </table>
+    {% if is_paginated %}
+        <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
+        {% if page_obj.has_previous %}
+            <a href="?page=1">Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+        {% endif %}
+
+        <!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a>{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">>>></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Плследняя</a>
+        {% endif %}
+    {% endif %}
+ {% else %}
+   <h2>Ностей на сегодня нет</h2>
+ {% endif %}
+{% endblock content %}

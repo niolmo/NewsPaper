@@ -7,6 +7,7 @@ from .models import Post
 from django.core.paginator import Paginator
 
 
+
 class simpleView(View):
     def get(self, request):
         post = Post.objects.order_by('-id')
@@ -25,9 +26,23 @@ class NewsList(ListView):
     template_name = 'news.html'
     context_object_name = 'news'
     queryset = Post.objects.order_by('-id')
+    paginate_by = 1
+
+
+class Search(ListView):
+    model = Post
+    template_name = 'search.html'
+    context_object_name = 'result'
+    queryset = Post.objects.order_by('-id')
     paginate_by = 10
-
-
+def get_queryset(self):
+    return Post.objects.filter()
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['d'] = self.request.Get.get('d')
+    context['t'] = self.request.Get.get('t')
+    context['a'] = self.request.Get.get('a')
+    return context
 
 class NewsDetail(DetailView):
     model = Post
